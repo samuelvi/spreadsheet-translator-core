@@ -1,0 +1,24 @@
+{
+  "name": "atico/spreadsheet-translator-core",
+  "license": "MIT",
+  "type": "library",
+  "description": "Spreadsheet Translator - Core Module",
+  "keywords": ["spreadsheet translations core module"],
+  "homepage": "https://github.com/samuelvi/spreadsheet-translator-core",
+  "authors": [
+    {
+      "name": "Samuel Vicent",
+      "email": "samuelvicent@gmail.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "AticO\\SpreadsheetTranslator\\Core\\": "./src"
+    }
+  },
+  "require": {
+    "php": ">=5.5.9"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
+}
