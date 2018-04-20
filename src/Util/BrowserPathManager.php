@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace AticO\SpreadsheetTranslator\Core\Util;
+namespace Atico\SpreadsheetTranslator\Core\Util;
 
 class BrowserPathManager
 {

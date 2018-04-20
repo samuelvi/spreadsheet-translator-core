@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace AticO\SpreadsheetTranslator\Core\Provider;
+namespace Atico\SpreadsheetTranslator\Core\Provider;
 
-use AticO\SpreadsheetTranslator\Core\Configuration\AbstractConfigurationManager;
+use Atico\SpreadsheetTranslator\Core\Configuration\AbstractConfigurationManager;
 
 class DefaultProviderManager extends AbstractConfigurationManager
 {

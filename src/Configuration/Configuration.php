@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace AticO\SpreadsheetTranslator\Core\Configuration;
+namespace Atico\SpreadsheetTranslator\Core\Configuration;
 
-use AticO\SpreadsheetTranslator\Core\Util\Strings;
+use Atico\SpreadsheetTranslator\Core\Util\Strings;
 
 class Configuration implements ConfigurationInterface
 {

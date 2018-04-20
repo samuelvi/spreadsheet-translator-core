@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace AticO\SpreadsheetTranslator\Core\Exporter;
+namespace Atico\SpreadsheetTranslator\Core\Exporter;
 
 interface ExporterConfigurationInterface
 {

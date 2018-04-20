@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace AticO\SpreadsheetTranslator\Core\Resource;
+namespace Atico\SpreadsheetTranslator\Core\Resource;
 
 class Resource implements ResourceInterface
 {

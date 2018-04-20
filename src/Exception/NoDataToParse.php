@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace AticO\SpreadsheetTranslator\Core\Exception;
+namespace Atico\SpreadsheetTranslator\Core\Exception;
 
 class NoDataToParse extends \Exception
 {

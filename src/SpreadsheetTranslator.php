@@ -9,10 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace AticO\SpreadsheetTranslator\Core;
+namespace Atico\SpreadsheetTranslator\Core;
 
-use AticO\SpreadsheetTranslator\Core\Processor\BookProcessor;
-use AticO\SpreadsheetTranslator\Core\Processor\SheetProcessor;
+use Atico\SpreadsheetTranslator\Core\Processor\BookProcessor;
+use Atico\SpreadsheetTranslator\Core\Processor\SheetProcessor;
 
 class SpreadsheetTranslator
 {

@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace AticO\SpreadsheetTranslator\Core\Exporter;
+namespace Atico\SpreadsheetTranslator\Core\Exporter;
 
-use AticO\SpreadsheetTranslator\Core\Configuration\AbstractConfigurationManager;
+use Atico\SpreadsheetTranslator\Core\Configuration\AbstractConfigurationManager;
 
 class ExporterConfigurationManager extends AbstractConfigurationManager implements ExporterConfigurationInterface
 {

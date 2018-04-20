@@ -9,16 +9,16 @@
  * file that was distributed with this source code.
  */
 
-namespace AticO\SpreadsheetTranslator\Core\Exporter;
+namespace Atico\SpreadsheetTranslator\Core\Exporter;
 
-use AticO\SpreadsheetTranslator\Core\Configuration\Configuration;
+use Atico\SpreadsheetTranslator\Core\Configuration\Configuration;
 
 class ExporterFactory
 {
     public function create(Configuration $configuration)
     {
         $exportFormat = $configuration->getFormat();
-        $class = sprintf('AticO\SpreadsheetTranslator\Exporter\%1$s\%1$s', ucfirst($exportFormat));
+        $class = sprintf('Atico\SpreadsheetTranslator\Exporter\%1$s\%1$s', ucfirst($exportFormat));
         return new $class($configuration);
     }
 }

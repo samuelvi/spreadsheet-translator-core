@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace AticO\SpreadsheetTranslator\Core\Parser;
+namespace Atico\SpreadsheetTranslator\Core\Parser;
 
 interface ParserConfigurationInterface
 {

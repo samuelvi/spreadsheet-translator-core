@@ -9,15 +9,15 @@
  * file that was distributed with this source code.
  */
 
-namespace AticO\SpreadsheetTranslator\Core\Processor;
+namespace Atico\SpreadsheetTranslator\Core\Processor;
 
-use AticO\SpreadsheetTranslator\Core\Exporter\ExporterFactory;
-use AticO\SpreadsheetTranslator\Core\Exporter\ExporterInterface;
-use AticO\SpreadsheetTranslator\Core\Parser\Parser;
-use AticO\SpreadsheetTranslator\Core\Provider\ProviderFactory;
-use AticO\SpreadsheetTranslator\Core\Provider\ProviderInterface;
-use AticO\SpreadsheetTranslator\Core\Resource\ResourceInterface;
-use AticO\SpreadsheetTranslator\Core\Configuration\Configuration;
+use Atico\SpreadsheetTranslator\Core\Exporter\ExporterFactory;
+use Atico\SpreadsheetTranslator\Core\Exporter\ExporterInterface;
+use Atico\SpreadsheetTranslator\Core\Parser\Parser;
+use Atico\SpreadsheetTranslator\Core\Provider\ProviderFactory;
+use Atico\SpreadsheetTranslator\Core\Provider\ProviderInterface;
+use Atico\SpreadsheetTranslator\Core\Resource\ResourceInterface;
+use Atico\SpreadsheetTranslator\Core\Configuration\Configuration;
 
 class ProcessorBase
 {

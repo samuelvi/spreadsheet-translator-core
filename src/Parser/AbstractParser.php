@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace AticO\SpreadsheetTranslator\Core\Parser;
+namespace Atico\SpreadsheetTranslator\Core\Parser;
 
-use AticO\SpreadsheetTranslator\Core\Configuration\ConfigurationInterface;
+use Atico\SpreadsheetTranslator\Core\Configuration\ConfigurationInterface;
 
 abstract class AbstractParser
 {

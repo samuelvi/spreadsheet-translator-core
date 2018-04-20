@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace AticO\SpreadsheetTranslator\Core\Processor;
+namespace Atico\SpreadsheetTranslator\Core\Processor;
 
 class BookProcessor extends ProcessorBase
 {

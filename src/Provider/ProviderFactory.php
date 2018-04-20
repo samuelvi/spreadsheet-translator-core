@@ -9,17 +9,17 @@
  * file that was distributed with this source code.
  */
 
-namespace AticO\SpreadsheetTranslator\Core\Provider;
+namespace Atico\SpreadsheetTranslator\Core\Provider;
 
-use AticO\SpreadsheetTranslator\Core\Configuration\Configuration;
-use AticO\SpreadsheetTranslator\Core\Util\Strings;
+use Atico\SpreadsheetTranslator\Core\Configuration\Configuration;
+use Atico\SpreadsheetTranslator\Core\Util\Strings;
 
 class ProviderFactory
 {
     protected function getClassName($providerName)
     {
         $providerNameCamelized = Strings::camelize($providerName);
-        $class = sprintf('AticO\SpreadsheetTranslator\Provider\%1$s\%1$sProvider', $providerNameCamelized);
+        $class = sprintf('Atico\SpreadsheetTranslator\Provider\%1$s\%1$sProvider', $providerNameCamelized);
         return $class;
     }
 

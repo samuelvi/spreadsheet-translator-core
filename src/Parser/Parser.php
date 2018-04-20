@@ -9,12 +9,12 @@
  * file that was distributed with this source code.
  */
 
-namespace AticO\SpreadsheetTranslator\Core\Parser;
+namespace Atico\SpreadsheetTranslator\Core\Parser;
 
-use AticO\SpreadsheetTranslator\Core\Configuration\Configuration;
-use AticO\SpreadsheetTranslator\Core\Exception\NoDataToParse;
-use AticO\SpreadsheetTranslator\Core\Reader\ReaderFactory;
-use AticO\SpreadsheetTranslator\Core\Resource\ResourceInterface;
+use Atico\SpreadsheetTranslator\Core\Configuration\Configuration;
+use Atico\SpreadsheetTranslator\Core\Exception\NoDataToParse;
+use Atico\SpreadsheetTranslator\Core\Reader\ReaderFactory;
+use Atico\SpreadsheetTranslator\Core\Resource\ResourceInterface;
 
 class Parser
 {

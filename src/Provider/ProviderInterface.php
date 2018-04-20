@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace AticO\SpreadsheetTranslator\Core\Provider;
+namespace Atico\SpreadsheetTranslator\Core\Provider;
 
 interface ProviderInterface
 {

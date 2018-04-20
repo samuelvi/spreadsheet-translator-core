@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace AticO\SpreadsheetTranslator\Core\Configuration;
+namespace Atico\SpreadsheetTranslator\Core\Configuration;
 
 abstract class AbstractConfigurationManager
 {

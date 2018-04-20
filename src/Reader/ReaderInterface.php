@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace AticO\SpreadsheetTranslator\Core\Reader;
+namespace Atico\SpreadsheetTranslator\Core\Reader;
 
 interface ReaderInterface
 {

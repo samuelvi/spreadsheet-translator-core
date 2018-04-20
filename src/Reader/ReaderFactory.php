@@ -9,14 +9,14 @@
  * file that was distributed with this source code.
  */
 
-namespace AticO\SpreadsheetTranslator\Core\Reader;
+namespace Atico\SpreadsheetTranslator\Core\Reader;
 
 class ReaderFactory
 {
     public function create($resource, $format)
     {
         $format = ucfirst($format);
-        $class = sprintf('AticO\SpreadsheetTranslator\Reader\%1$s\%1$sReader', $format);
+        $class = sprintf('Atico\SpreadsheetTranslator\Reader\%1$s\%1$sReader', $format);
         return new $class($resource);
     }
 }
