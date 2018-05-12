@@ -3,13 +3,29 @@ SpreadsheetTranslator Core
 
 The "Spreeadsheet2Translation Core" contains the core library for the Spreadsheet Translator functionallity
 
-@TODO:
+Symfony Bundle:
+- <a href="https://github.com/samuelvi/spreadsheet-translator-symfony-bundle">Symfony Bundle</a>
 
-- Links to the Demo Php Symfony project
-- Links to the Symfony Bundle
-- Links to Exportes
-- Links to Providers
-- Links to Readers
+Symfony Demos:
+
+- <a href="https://github.com/samuelvi/translator-symfony-demo-local-file-to-php">Symfony Demo. Takes a local file and creates translation files per locale in php format</a>
+- <a href="https://github.com/samuelvi/translator-symfony-demo-google-to-yml">Symfony Demo. Takes a google drive spreadsheet and creates translation files per locale in yml format</a>
+
+Exporters:
+
+- <a href="https://github.com/samuelvi/spreadsheet-translator-exporter-yml">Yml exporter</a>
+- <a href="https://github.com/samuelvi/spreadsheet-translator-exporter-php">Php exporter</a>
+- <a href="https://github.com/samuelvi/spreadsheet-translator-exporter-xliff">Xliff exporter</a>
+
+Providers:
+- <a href="https://github.com/samuelvi/spreadsheet-translator-provider-localfile">Local file</a>
+- <a href="https://github.com/samuelvi/spreadsheet-translator-provider-googledrive">Google drive</a>
+
+Readers:
+
+- <a href="https://github.com/samuelvi/spreadsheet-translator-reader-xlsx">Xlsx</a>
+- <a href="https://github.com/samuelvi/spreadsheet-translator-reader-matrix">Matrix</a>
+
 
 
 Requirements
