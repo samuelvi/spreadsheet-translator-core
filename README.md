@@ -1,7 +1,7 @@
-SpreadsheetTranslator Core
+Spreadsheet Translator Core
 ============================
 
-The "Spreeadsheet2Translation Core" contains the core library for the Spreadsheet Translator functionallity
+The "Spreeadsheet Translator Core" contains the core library for the Spreadsheet Translator functionallity
 
 Symfony Bundle:
 - <a href="https://github.com/samuelvi/spreadsheet-translator-symfony-bundle">Symfony Bundle</a>
