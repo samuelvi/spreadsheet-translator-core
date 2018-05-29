@@ -43,7 +43,7 @@ abstract class AbstractConfigurationManager
     {
         $value = $this->configuration->getOption($name);
         if (null === $value) {
-            throw new \Exception('The configuration parameter: "%s" is required', $name);
+            throw new \Exception(sprintf('The configuration parameter: "%s" is required', $name));
         }
         return $value;
     }
