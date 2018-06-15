@@ -17,28 +17,42 @@ abstract class AbstractExporter
     protected $configuration;
 
     protected abstract function buildContent(ExportContentInterface $exportContent);
+
     protected abstract function getFormat();
 
     /**
      * @throws \Exception
      */
-    public function save($localizedTranslations)
+    public function save($localizedTranslations, $sheetName)
     {
         foreach ($localizedTranslations as $locale => $translations) {
-            $destinationFile = $this->buildDestinationFile($locale, $this->getFormat());
+
+            $fileName = $this->buildFileNameWithoutExtension($sheetName, $locale);
+            $baseName = $this->buildFileNameWithExtension($fileName);
+            $absolutePath = $this->buildDestinationFile($baseName);
 
             /** @var ExportContent $exportContent */
-            $exportContent = new ExportContent($destinationFile, $translations, $locale);
+            $exportContent = new ExportContent($absolutePath, $translations, $locale);
             $content = $this->buildContent($exportContent);
 
-            $this->persist($destinationFile, $content);
+            $this->doPersist($absolutePath, $content);
         }
+    }
+
+    private function buildFileNameWithoutExtension($sheetName, $locale)
+    {
+        return sprintf('%s_%s.%s', $this->configuration->getDomain(), $sheetName, $locale);
+    }
+
+    private function buildFileNameWithExtension($fileName)
+    {
+        return sprintf('%s_%s', $fileName, $this->getFormat());
     }
 
     /**
      * @throws \Exception
      */
-    protected function persist($destinationFile, $content)
+    private function doPersist($destinationFile, $content)
     {
         $bytes = file_put_contents($destinationFile, $content);
         if ($bytes === false) {
@@ -46,15 +60,14 @@ abstract class AbstractExporter
         }
     }
 
-    protected function getDestinationFileWithoutExtension()
+    protected function buildDestinationFile($baseName)
     {
-        $destinationFolder = sprintf('%s%s', rtrim($this->configuration->getDestinationFolder(), DIRECTORY_SEPARATOR), DIRECTORY_SEPARATOR);
-        return sprintf('%s%s%s', $destinationFolder, $this->configuration->getPrefix(), $this->configuration->getDomain());
+        $destinationFile = sprintf('%s%s%s', $this->buildDestinationFolder(), DIRECTORY_SEPARATOR, $baseName);
+        return $destinationFile;
     }
 
-    protected function buildDestinationFile($locale, $extension)
+    private function buildDestinationFolder()
     {
-        $destinationFile = sprintf('%s.%s.%s', $this->getDestinationFileWithoutExtension(), $locale, $extension);
-        return $destinationFile;
+        return rtrim($this->configuration->getDestinationFolder(), DIRECTORY_SEPARATOR);
     }
 }

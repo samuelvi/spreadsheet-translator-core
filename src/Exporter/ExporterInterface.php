@@ -13,6 +13,6 @@ namespace Atico\SpreadsheetTranslator\Core\Exporter;
 
 interface ExporterInterface
 {
-    public function save($data);
+    public function save($data, $sheetName);
     public function getFormat();
 }

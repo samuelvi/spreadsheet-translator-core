@@ -26,21 +26,7 @@ class Configuration implements ConfigurationInterface
     public function __construct(array $options, $key)
     {
         $this->checkNumberOfOptionsMustBeOne($options);
-
-        $keys = array_keys($options);
-        $groupedOptions = $options[$keys[0]];
-        $sharedOptions = (isset($groupedOptions['shared']))?$groupedOptions['shared']:array();
-
-        if (!isset($groupedOptions[$key])) {
-
-            if (in_array($key, $this->nonRequiredOptions)) {
-                return $sharedOptions;
-            } else {
-                throw new \Exception(sprintf('Configuration for "%s" not found', $key));
-            }
-        }
-
-        $this->options = array_merge($sharedOptions, $groupedOptions[$key]);
+        $this->parseOptions($options, $key);
     }
 
     /**
@@ -53,6 +39,27 @@ class Configuration implements ConfigurationInterface
         if (count($keys) != 1) {
             throw new \Exception(sprintf('Only one key configuration is required. Found: %s.', count($keys)));
         }
+    }
+
+    /**
+     * @throws \Exception
+     */
+    private function parseOptions($options, $key) {
+        $keys = array_keys($options);
+        $groupedOptions = $options[$keys[0]];
+        $sharedOptions = (isset($groupedOptions['shared']))?$groupedOptions['shared']:array();
+        $reservedOptions['domain'] = key($options);
+
+        if (!isset($groupedOptions[$key])) {
+
+            if (in_array($key, $this->nonRequiredOptions)) {
+                return $sharedOptions;
+            } else {
+                throw new \Exception(sprintf('Configuration for "%s" not found', $key));
+            }
+        }
+
+        $this->options = array_merge($sharedOptions, $groupedOptions[$key], $reservedOptions);
     }
 
     public function __call($method, $args)

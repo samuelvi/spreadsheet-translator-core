@@ -11,14 +11,35 @@
 
 namespace Atico\SpreadsheetTranslator\Core\Processor;
 
+use Atico\SpreadsheetTranslator\Core\Reader\ReaderFactory;
+use Atico\SpreadsheetTranslator\Core\Reader\ReaderInterface;
+use Atico\SpreadsheetTranslator\Core\Resource\ResourceInterface;
+
 class BookProcessor extends ProcessorBase
 {
-    /**
-     * @TODO
-     * @throws \Exception
-     */
     public function processBook()
     {
-        throw new \Exception('Pending');
+        /** @var ResourceInterface $resource */
+        $resource = $this->readSourceResource();
+
+        $sheetNames = $this->getSheetNames($resource);
+
+        $this->parseAllSheetsAndSaveIntoCorrespondingTranslatedFiles($sheetNames, $resource);
+    }
+
+    private function getSheetNames(ResourceInterface $resource)
+    {
+
+        /** @var ReaderInterface $reader */
+        $readerFactory = new ReaderFactory();
+        $reader = $readerFactory->create($resource->getValue(), $resource->getFormat());
+        return $reader->getSheetNames();
+    }
+
+    private function parseAllSheetsAndSaveIntoCorrespondingTranslatedFiles($sheetNames, ResourceInterface $resource)
+    {
+        foreach ($sheetNames as $sheetName) {
+            parent::parseSheetAndSaveIntoTranslatedFile($sheetName, $resource);
+        }
     }
 }

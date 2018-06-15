@@ -52,13 +52,19 @@ class ProcessorBase
         return $localizedTranslations;
     }
 
-    protected function saveTranslatedFile(array $localizedTranslations)
+    protected function saveTranslatedFile(array $localizedTranslations, $sheetName)
     {
         /** @var ExporterInterface $exporter */
         $exporterFactory = new ExporterFactory();
         $exporterConfiguration = new Configuration($this->configuration, 'exporter');
 
         $exporter = $exporterFactory->create($exporterConfiguration);
-        $exporter->save($localizedTranslations);
+        $exporter->save($localizedTranslations, $sheetName);
+    }
+
+    public function parseSheetAndSaveIntoTranslatedFile($sheetName, ResourceInterface $resource)
+    {
+        $localizedTranslations = $this->parseSheet($sheetName, $resource);
+        $this->saveTranslatedFile($localizedTranslations, $sheetName);
     }
 }

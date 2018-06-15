@@ -42,6 +42,7 @@ abstract class AbstractConfigurationManager
     protected function getRequiredOption($name)
     {
         $value = $this->configuration->getOption($name);
+
         if (null === $value) {
             throw new \Exception(sprintf('The configuration parameter: "%s" is required', $name));
         }

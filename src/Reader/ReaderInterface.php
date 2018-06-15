@@ -14,6 +14,8 @@ namespace Atico\SpreadsheetTranslator\Core\Reader;
 interface ReaderInterface
 {
     public function getSheets();
+    public function getSheetNames();
     public function getDataBySheetName($name);
     public function getData($sheet);
+    public function getTitle($index);
 }

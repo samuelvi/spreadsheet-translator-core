@@ -19,8 +19,7 @@ class SheetProcessor extends ProcessorBase
     {
         /** @var ResourceInterface $resource */
         $resource = $this->readSourceResource();
-        $localizedTranslations = $this->parseSheet($sheetName, $resource);
 
-        $this->saveTranslatedFile($localizedTranslations);
+        parent::parseSheetAndSaveIntoTranslatedFile($sheetName, $resource);
     }
 }
