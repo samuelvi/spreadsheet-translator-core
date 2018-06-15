@@ -33,17 +33,27 @@ class SpreadsheetTranslator
     {
         return $this->configuration;
     }
-    
-    public function processSheet($sheetName)
+
+    public function processSheet($sheetName, $bookName)
     {
-        $sheetProcessor = new SheetProcessor($this->configuration);
+        $sheetProcessor = SheetProcessor::createFromConfiguration([$bookName => $this->configuration[$bookName]]);
         $sheetProcessor->processSheet($sheetName);
     }
 
-    public function processBook()
+    public function processBook($bookName)
     {
-        $sheetProcessor = new BookProcessor($this->configuration);
-        $sheetProcessor->processBook();
+        $bookProcessor = BookProcessor::createFromConfiguration([$bookName => $this->configuration[$bookName]]);
+        $bookProcessor->processBook();
+    }
+
+    public function processAllBooks()
+    {
+        foreach ($this->configuration as $bookName => $configurationGroup) {
+
+            /** @var BookProcessor $bookProcessor */
+            $bookProcessor = BookProcessor::createFromConfiguration([$bookName => $configurationGroup]);
+            $bookProcessor->processBook();
+        }
     }
 
 }

@@ -46,7 +46,7 @@ abstract class AbstractExporter
 
     private function buildFileNameWithExtension($fileName)
     {
-        return sprintf('%s_%s', $fileName, $this->getFormat());
+        return sprintf('%s.%s', $fileName, $this->getFormat());
     }
 
     /**

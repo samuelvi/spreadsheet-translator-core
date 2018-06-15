@@ -11,15 +11,10 @@
 
 namespace Atico\SpreadsheetTranslator\Core\Processor;
 
-use Atico\SpreadsheetTranslator\Core\Resource\ResourceInterface;
-
 class SheetProcessor extends ProcessorBase
 {
     public function processSheet($sheetName)
     {
-        /** @var ResourceInterface $resource */
-        $resource = $this->readSourceResource();
-
-        parent::parseSheetAndSaveIntoTranslatedFile($sheetName, $resource);
+        parent::parseSheetAndSaveIntoTranslatedFile($sheetName);
     }
 }

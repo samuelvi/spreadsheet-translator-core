@@ -23,43 +23,32 @@ class Configuration implements ConfigurationInterface
     /**
      * @throws \Exception
      */
-    public function __construct(array $options, $key)
+    public function __construct($configuration, $groupName)
     {
-        $this->checkNumberOfOptionsMustBeOne($options);
-        $this->parseOptions($options, $key);
+        $this->parseConfiguration($configuration, $groupName);
     }
 
     /**
      * @throws \Exception
      */
-    private function checkNumberOfOptionsMustBeOne($options)
+    private function parseConfiguration($configuration, $groupName)
     {
-        $keys = array_keys($options);
+        $groups = array_values($configuration)[0];
 
-        if (count($keys) != 1) {
-            throw new \Exception(sprintf('Only one key configuration is required. Found: %s.', count($keys)));
-        }
-    }
+        //$groupedOptions = $options[$keys[0]];
+        $sharedOptions = (isset($groups['shared'])) ? $groups['shared'] : array();
+        $sharedOptions['domain'] = key($configuration);
 
-    /**
-     * @throws \Exception
-     */
-    private function parseOptions($options, $key) {
-        $keys = array_keys($options);
-        $groupedOptions = $options[$keys[0]];
-        $sharedOptions = (isset($groupedOptions['shared']))?$groupedOptions['shared']:array();
-        $reservedOptions['domain'] = key($options);
+        if (!isset($groups[$groupName])) {
 
-        if (!isset($groupedOptions[$key])) {
-
-            if (in_array($key, $this->nonRequiredOptions)) {
+            if (in_array($groupName, $this->nonRequiredOptions)) {
                 return $sharedOptions;
             } else {
-                throw new \Exception(sprintf('Configuration for "%s" not found', $key));
+                throw new \Exception(sprintf('Configuration Group for "%s" not found', $groupName));
             }
         }
 
-        $this->options = array_merge($sharedOptions, $groupedOptions[$key], $reservedOptions);
+        $this->options = array_merge($sharedOptions, $groups[$groupName]);
     }
 
     public function __call($method, $args)

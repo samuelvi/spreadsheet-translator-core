@@ -24,34 +24,33 @@ class ProcessorBase
     /** @var  array $configuration */
     protected $configuration;
 
+    /** @var ResourceInterface */
+    protected $resource;
+
     public function __construct($configuration)
     {
         $this->configuration = $configuration;
+        $this->resource = null;
     }
 
-    protected function readSourceResource()
+
+    public function parseSheetAndSaveIntoTranslatedFile($sheetName)
     {
-        /** @var ProviderInterface $provider */
-        $providerFactory = new ProviderFactory();
-        $providerConfiguration = new Configuration($this->configuration, 'provider');
-        $provider = $providerFactory->create($providerConfiguration);
-
-        /** @var ResourceInterface $resource */
-        $resource = $provider->handleSourceResource();
-        return $resource;
+        $localizedTranslations = $this->parseSheet($sheetName);
+        $this->saveTranslatedFile($localizedTranslations, $sheetName);
     }
 
-    protected function parseSheet($sheetName, ResourceInterface $resource)
+    protected function parseSheet($sheetName)
     {
         $parserConfiguration = new Configuration($this->configuration, 'parser');
 
         /** @var Parser $parser */
-        $parser = new Parser($resource, $parserConfiguration);
+        $parser = new Parser($this->getResource(), $parserConfiguration);
 
         $localizedTranslations = $parser->parseSheet($sheetName);
         return $localizedTranslations;
     }
-
+    
     protected function saveTranslatedFile(array $localizedTranslations, $sheetName)
     {
         /** @var ExporterInterface $exporter */
@@ -62,9 +61,35 @@ class ProcessorBase
         $exporter->save($localizedTranslations, $sheetName);
     }
 
-    public function parseSheetAndSaveIntoTranslatedFile($sheetName, ResourceInterface $resource)
+    /**
+     * @param $bookName
+     * @return ResourceInterface
+     */
+    public function getResource()
     {
-        $localizedTranslations = $this->parseSheet($sheetName, $resource);
-        $this->saveTranslatedFile($localizedTranslations, $sheetName);
+        if (null === $this->resource) {
+            $this->resource = $this->buildResource();
+        }
+
+        return $this->resource;
+    }
+
+    /**
+     * @return ResourceInterface $resource
+     */
+    private function buildResource()
+    {
+        /** @var ProviderInterface $provider */
+        $providerFactory = new ProviderFactory();
+        $providerConfiguration = new Configuration($this->configuration, 'provider');
+        $provider = $providerFactory->create($providerConfiguration);
+
+        return $provider->handleSourceResource();
+    }
+
+    public static function createFromConfiguration($configuration)
+    {
+        $class = get_called_class();
+        return new $class($configuration);
     }
 }

@@ -19,16 +19,15 @@ class BookProcessor extends ProcessorBase
 {
     public function processBook()
     {
-        /** @var ResourceInterface $resource */
-        $resource = $this->readSourceResource();
+        $sheetNames = $this->getSheetNames();
 
-        $sheetNames = $this->getSheetNames($resource);
-
-        $this->parseAllSheetsAndSaveIntoCorrespondingTranslatedFiles($sheetNames, $resource);
+        $this->parseAllSheetsAndSaveIntoCorrespondingTranslatedFiles($sheetNames);
     }
 
-    private function getSheetNames(ResourceInterface $resource)
+    private function getSheetNames()
     {
+        /** @var ResourceInterface $resource */
+        $resource = $this->getResource();
 
         /** @var ReaderInterface $reader */
         $readerFactory = new ReaderFactory();
@@ -36,10 +35,10 @@ class BookProcessor extends ProcessorBase
         return $reader->getSheetNames();
     }
 
-    private function parseAllSheetsAndSaveIntoCorrespondingTranslatedFiles($sheetNames, ResourceInterface $resource)
+    private function parseAllSheetsAndSaveIntoCorrespondingTranslatedFiles($sheetNames)
     {
         foreach ($sheetNames as $sheetName) {
-            parent::parseSheetAndSaveIntoTranslatedFile($sheetName, $resource);
+            parent::parseSheetAndSaveIntoTranslatedFile($sheetName);
         }
     }
 }
