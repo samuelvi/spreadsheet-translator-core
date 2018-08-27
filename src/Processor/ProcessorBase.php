@@ -82,8 +82,8 @@ class ProcessorBase
         /** @var ProviderInterface $provider */
         $providerFactory = new ProviderFactory();
         $providerConfiguration = new Configuration($this->configuration, 'provider');
-        $provider = $providerFactory->create($providerConfiguration);
 
+        $provider = $providerFactory->create($providerConfiguration);
         return $provider->handleSourceResource();
     }
 

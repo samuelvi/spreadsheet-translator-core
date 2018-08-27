@@ -15,7 +15,7 @@ use Atico\SpreadsheetTranslator\Core\Reader\ReaderFactory;
 use Atico\SpreadsheetTranslator\Core\Reader\ReaderInterface;
 use Atico\SpreadsheetTranslator\Core\Resource\ResourceInterface;
 
-class BookProcessor extends ProcessorBase
+class BookProcessor extends ProcessorBase implements BookProcessorInterface
 {
     public function processBook()
     {

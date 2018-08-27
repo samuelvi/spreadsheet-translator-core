@@ -29,4 +29,9 @@ class ParserConfigurationManager extends AbstractConfigurationManager implements
     {
         return $this->getNonRequiredOption('name_separator', '.');
     }
+
+    public function getIncludeEmpty()
+    {
+        return $this->getNonRequiredOption('include_empty', false);
+    }
 }

@@ -50,15 +50,20 @@ class Parser
         }
 
         $translations = [];
-
         $locales = $dataParser->getLocales();
+
+        $includeEmpty = $this->configuration->getIncludeEmpty();
 
         /** @var DataParser $row */
         foreach ($dataParser as $row) {
-            
+
             foreach ($locales as $locale) {
                 $key = $row->getKey();
-                $translations[$locale][$key] = $row->getValue($locale);
+                $value = $row->getValue($locale);
+
+                if (!empty($value) || $includeEmpty) {
+                    $translations[$locale][$key] = $value;
+                }
             }
         }
         return $translations;

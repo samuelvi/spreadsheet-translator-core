@@ -41,7 +41,7 @@ abstract class AbstractExporter
 
     private function buildFileNameWithoutExtension($sheetName, $locale)
     {
-        return sprintf('%s_%s.%s', $this->configuration->getDomain(), $sheetName, $locale);
+        return sprintf('%s%s.%s', $this->configuration->getPrefix(), $sheetName, $locale);
     }
 
     private function buildFileNameWithExtension($fileName)
