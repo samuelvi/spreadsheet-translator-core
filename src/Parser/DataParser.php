@@ -89,14 +89,14 @@ class DataParser extends AbstractParser implements \Iterator
         }
     }
 
-    public function getKey()
+    public function resolveKey()
     {
-        $name = [];
+        $keys = [];
         for ($i = 0, $count = count($this->nameColumns); $i < $count; $i++) {
-            $name[] = $this->data[$this->index][$i];
+            $keys[] = $this->data[$this->index][$i];
         }
 
-        return join($name, $this->nameSeparator);
+        return $this->buildKey($keys);
     }
 
     public function getValue($locale)
@@ -117,5 +117,19 @@ class DataParser extends AbstractParser implements \Iterator
     public function getKeyTitles()
     {
         return array_keys($this->nameColumns);
+    }
+
+    public function getKeys()
+    {
+        $keys = [];
+        for ($i = 0, $count = count($this->nameColumns); $i < $count; $i++) {
+            $keys[] = $this->data[$this->index][$i];
+        }
+        return $keys;
+    }
+
+    public function buildKey($keys)
+    {
+        return join($keys, $this->nameSeparator);
     }
 }

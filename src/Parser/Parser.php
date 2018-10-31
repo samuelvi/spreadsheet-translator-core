@@ -12,7 +12,8 @@
 namespace Atico\SpreadsheetTranslator\Core\Parser;
 
 use Atico\SpreadsheetTranslator\Core\Configuration\Configuration;
-use Atico\SpreadsheetTranslator\Core\Exception\NoDataToParse;
+use Atico\SpreadsheetTranslator\Core\Exception\NoDataToParseException;
+use Atico\SpreadsheetTranslator\Core\Parser\Resolver\LazyKeyResolver;
 use Atico\SpreadsheetTranslator\Core\Reader\ReaderFactory;
 use Atico\SpreadsheetTranslator\Core\Resource\ResourceInterface;
 
@@ -32,7 +33,7 @@ class Parser
     }
 
     /**
-     * @throws NoDataToParse
+     * @throws NoDataToParseException
      */
     public function parseSheet($sheetName)
     {
@@ -46,26 +47,73 @@ class Parser
         );
 
         if (!$dataParser->hasDataToParse()) {
-            throw NoDataToParse::create();
+            throw NoDataToParseException::create();
         }
 
-        $translations = [];
         $locales = $dataParser->getLocales();
 
-        $includeEmpty = $this->configuration->getIncludeEmpty();
+        if ($this->configuration->getLazyMode()) {
+            $translations = $this->doParseSheet($dataParser, $locales);
+        } else {
+            $translations = $this->doParseSheetConsideringLazyKeys($dataParser, $locales);
+        }
 
+        return $translations;
+    }
+
+    private function doParseSheet($dataParser, $locales)
+    {
         /** @var DataParser $row */
         foreach ($dataParser as $row) {
 
             foreach ($locales as $locale) {
-                $key = $row->getKey();
+
+                $key = $row->resolveKey();
                 $value = $row->getValue($locale);
 
-                if (!empty($value) || $includeEmpty) {
+                if (!empty($value)) {
                     $translations[$locale][$key] = $value;
                 }
             }
         }
+
         return $translations;
+    }
+
+    /**
+     * @param \IteratorIterator $dataParser
+     * @return mixed
+     */
+    private function doParseSheetConsideringLazyKeys(DataParser $dataParser, $locales)
+    {
+        /** @var LazyKeyResolver $lazyKeyResolver */
+        $lazyKeyResolver = new LazyKeyResolver($this->configuration->getNameSeparator());
+
+        $previousKeys = self::getFirstSetOkKeysFromDataParser($dataParser);
+        foreach ($dataParser as $row) {
+
+            $previousKeys = $lazyKeyResolver->resolveLazyKeys($row->getKeys(), $previousKeys);
+
+            if (empty($key = $row->buildKey($previousKeys))) {
+                continue;
+            }
+
+            foreach ($locales as $locale) {
+
+                if (!empty($value = $row->getValue($locale))) {
+                    $translations[$locale][$key] = $value;
+                }
+            }
+        }
+
+        return $translations;
+    }
+
+    private static function getFirstSetOkKeysFromDataParser(DataParser $dataParser)
+    {
+        /** @var DataParser $row */
+        $dataParser->rewind();
+        $row = $dataParser->current();
+        return $row->getKeys();
     }
 }

@@ -42,6 +42,7 @@ class Configuration implements ConfigurationInterface
         if (!isset($groups[$groupName])) {
 
             if (in_array($groupName, $this->nonRequiredOptions)) {
+
                 return $sharedOptions;
             } else {
                 throw new \Exception(sprintf('Configuration Group for "%s" not found', $groupName));

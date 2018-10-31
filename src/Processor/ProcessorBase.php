@@ -11,6 +11,7 @@
 
 namespace Atico\SpreadsheetTranslator\Core\Processor;
 
+use Atico\SpreadsheetTranslator\Core\Exception\NoDataToParseException;
 use Atico\SpreadsheetTranslator\Core\Exporter\ExporterFactory;
 use Atico\SpreadsheetTranslator\Core\Exporter\ExporterInterface;
 use Atico\SpreadsheetTranslator\Core\Parser\Parser;
@@ -40,13 +41,16 @@ class ProcessorBase
         $this->saveTranslatedFile($localizedTranslations, $sheetName);
     }
 
+    /**
+     * @throws NoDataToParseException
+     */
     protected function parseSheet($sheetName)
     {
         $parserConfiguration = new Configuration($this->configuration, 'parser');
 
         /** @var Parser $parser */
         $parser = new Parser($this->getResource(), $parserConfiguration);
-
+        
         $localizedTranslations = $parser->parseSheet($sheetName);
         return $localizedTranslations;
     }
