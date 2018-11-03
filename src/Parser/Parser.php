@@ -50,10 +50,11 @@ class Parser
         }
 
         $locales = $dataParser->getLocales();
+
         if ($this->configuration->getLazyMode()) {
-            $translations = $this->doParseSheet($dataParser, $locales);
-        } else {
             $translations = $this->doParseSheetConsideringLazyKeys($dataParser, $locales);
+        } else {
+            $translations = $this->doParseSheet($dataParser, $locales);
         }
 
         return $translations;
