@@ -34,7 +34,9 @@ class ProcessorBase
         $this->resource = null;
     }
 
-
+    /**
+     * @throws \Exception
+     */
     public function parseSheetAndSaveIntoTranslatedFile($sheetName)
     {
         $localizedTranslations = $this->parseSheet($sheetName);
@@ -42,7 +44,7 @@ class ProcessorBase
     }
 
     /**
-     * @throws NoDataToParseException
+     * @throws NoDataToParseException|\Exception
      */
     protected function parseSheet($sheetName)
     {
@@ -54,7 +56,10 @@ class ProcessorBase
         $localizedTranslations = $parser->parseSheet($sheetName);
         return $localizedTranslations;
     }
-    
+
+    /**
+     * @throws \Exception
+     */
     protected function saveTranslatedFile(array $localizedTranslations, $sheetName)
     {
         /** @var ExporterInterface $exporter */
@@ -68,6 +73,7 @@ class ProcessorBase
     /**
      * @param $bookName
      * @return ResourceInterface
+     * @throws \Exception
      */
     public function getResource()
     {
@@ -80,6 +86,7 @@ class ProcessorBase
 
     /**
      * @return ResourceInterface $resource
+     * @throws \Exception
      */
     private function buildResource()
     {

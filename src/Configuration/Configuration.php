@@ -35,21 +35,19 @@ class Configuration implements ConfigurationInterface
     {
         $groups = array_values($configuration)[0];
 
-        //$groupedOptions = $options[$keys[0]];
         $sharedOptions = (isset($groups['shared'])) ? $groups['shared'] : array();
         $sharedOptions['domain'] = key($configuration);
 
-        if (!isset($groups[$groupName])) {
-
-            if (in_array($groupName, $this->nonRequiredOptions)) {
-
-                return $sharedOptions;
-            } else {
-                throw new \Exception(sprintf('Configuration Group for "%s" not found', $groupName));
-            }
+        if (isset($groups[$groupName])) {
+            $this->options = array_merge($sharedOptions, $groups[$groupName]);
+            return;
         }
 
-        $this->options = array_merge($sharedOptions, $groups[$groupName]);
+        if (!in_array($groupName, $this->nonRequiredOptions)) {
+            throw new \Exception(sprintf('Configuration Group for "%s" not found', $groupName));
+        }
+
+        $this->options = $sharedOptions;
     }
 
     public function __call($method, $args)
@@ -77,5 +75,10 @@ class Configuration implements ConfigurationInterface
         } else {
             return null;
         }
+    }
+
+    public function getOptions()
+    {
+        return $this->options;
     }
 }

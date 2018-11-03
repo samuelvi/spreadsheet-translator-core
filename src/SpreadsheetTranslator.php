@@ -40,12 +40,9 @@ class SpreadsheetTranslator
         $sheetProcessor->processSheet($sheetName);
     }
 
-    public function processBook($bookName)
-    {
-        $bookProcessor = BookProcessor::createFromConfiguration([$bookName => $this->configuration[$bookName]]);
-        $bookProcessor->processBook();
-    }
-
+    /**
+     * @throws \Exception
+     */
     public function processAllBooks()
     {
         foreach ($this->configuration as $bookName => $configurationGroup) {
@@ -56,4 +53,9 @@ class SpreadsheetTranslator
         }
     }
 
+    public function processBook($bookName)
+    {
+        $bookProcessor = BookProcessor::createFromConfiguration([$bookName => $this->configuration[$bookName]]);
+        $bookProcessor->processBook();
+    }
 }

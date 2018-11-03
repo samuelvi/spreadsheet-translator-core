@@ -63,20 +63,21 @@ class DataParser extends AbstractParser implements \Iterator
         return count($this->data);
     }
 
-
-    private static function isValidLocale($locale)
-    {
-        return preg_match('/^([a-z]{2})((-|_)[A-Z]{2})?$/', $locale);
-    }
-
     protected function configureKeyColumns()
     {
         for ($i = 0, $count = count($this->header); $i < $count; $i++) {
             $key = $this->header[$i];
-            if (!self::isValidLocale($key)) {
-                $this->nameColumns[$key] = $i;
+
+            if (empty($key) || self::isValidLocale($key)) {
+                break;
             }
+            $this->nameColumns[$key] = $i;
         }
+    }
+    
+    private static function isValidLocale($locale)
+    {
+        return preg_match('/^([a-z]{2})((-|_)[A-Z]{2})?$/', $locale);
     }
 
     protected function configureLocaleColumns()
@@ -97,6 +98,27 @@ class DataParser extends AbstractParser implements \Iterator
         }
 
         return $this->buildKey($keys);
+    }
+
+    public function resolveLazyKeys($previousKeys)
+    {
+        for ($i = 0, $count = count($this->nameColumns); $i < $count; $i++) {
+            $currentKeys[] = $this->data[$this->index][$i];
+        }
+
+        $keys = [];
+        foreach ($currentKeys as $idx => $key) {
+
+            if (empty($key)) {
+                $keys[] = $previousKeys[$idx];
+            } else if (!empty($key)) {
+                $keys[] = $key;
+            } else {
+                $keys[] = '';
+            }
+        }
+
+        return $keys;
     }
 
     public function getValue($locale)
@@ -132,4 +154,13 @@ class DataParser extends AbstractParser implements \Iterator
     {
         return join($keys, $this->nameSeparator);
     }
+
+    public function allKeysAreEmpty($keys)
+    {
+        foreach ($keys as $key) {
+            if (!empty($key)) return false;
+        }
+        return true;
+    }
+
 }
