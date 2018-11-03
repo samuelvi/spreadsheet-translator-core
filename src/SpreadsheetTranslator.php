@@ -11,6 +11,7 @@
 
 namespace Atico\SpreadsheetTranslator\Core;
 
+use Atico\SpreadsheetTranslator\Core\Configuration\ConfigurationPreparer;
 use Atico\SpreadsheetTranslator\Core\Processor\BookProcessor;
 use Atico\SpreadsheetTranslator\Core\Processor\SheetProcessor;
 
@@ -21,7 +22,12 @@ class SpreadsheetTranslator
 
     function __construct($configuration = array())
     {
+        ConfigurationPreparer::prepareConfiguration($configuration);
         $this->setConfiguration($configuration);
+    }
+
+    function __destruct() {
+        ConfigurationPreparer::cleanUp($this->configuration);
     }
 
     public function setConfiguration($configuration)
@@ -58,4 +64,5 @@ class SpreadsheetTranslator
         $bookProcessor = BookProcessor::createFromConfiguration([$bookName => $this->configuration[$bookName]]);
         $bookProcessor->processBook();
     }
+
 }

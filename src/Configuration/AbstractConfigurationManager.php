@@ -48,4 +48,5 @@ abstract class AbstractConfigurationManager
         }
         return $value;
     }
+
 }

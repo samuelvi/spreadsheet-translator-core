@@ -18,36 +18,15 @@ class Configuration implements ConfigurationInterface
     /** @var  array $options */
     protected $options;
 
-    protected $nonRequiredOptions = array('parser');
+//    protected $nonRequiredOptions = array('parser');
 
     /**
      * @throws \Exception
      */
     public function __construct($configuration, $groupName)
     {
-        $this->parseConfiguration($configuration, $groupName);
-    }
-
-    /**
-     * @throws \Exception
-     */
-    private function parseConfiguration($configuration, $groupName)
-    {
         $groups = array_values($configuration)[0];
-
-        $sharedOptions = (isset($groups['shared'])) ? $groups['shared'] : array();
-        $sharedOptions['domain'] = key($configuration);
-
-        if (isset($groups[$groupName])) {
-            $this->options = array_merge($sharedOptions, $groups[$groupName]);
-            return;
-        }
-
-        if (!in_array($groupName, $this->nonRequiredOptions)) {
-            throw new \Exception(sprintf('Configuration Group for "%s" not found', $groupName));
-        }
-
-        $this->options = $sharedOptions;
+        $this->options = $groups[$groupName];
     }
 
     public function __call($method, $args)
