@@ -106,13 +106,14 @@ class DataParser extends AbstractParser implements \Iterator
             $currentKeys[] = $this->data[$this->index][$i];
         }
 
-        if(!array_filter($currentKeys) && !array_filter($previousKeys)) {
+        if(self::allKeysAreEmpty($currentKeys) && self::allKeysAreEmpty($previousKeys)) {
             return [];
         }
 
         $keys = [];
         foreach ($currentKeys as $idx => $key) {
 
+            $key = trim($key);
             if (empty($key)) {
                 $keys[] = $previousKeys[$idx];
             } else if (!empty($key)) {
@@ -159,12 +160,9 @@ class DataParser extends AbstractParser implements \Iterator
         return join($keys, $this->nameSeparator);
     }
 
-    public function allKeysAreEmpty($keys)
+    public static function allKeysAreEmpty($keys)
     {
-        foreach ($keys as $key) {
-            if (!empty($key)) return false;
-        }
-        return true;
+        return !array_filter($keys);
     }
 
 }

@@ -89,11 +89,14 @@ class Parser
         $previousKeys = [];
         foreach ($dataParser as $row) {
 
-            $previousKeys = $row->resolveLazyKeys($previousKeys);
+            $currentKeys = $row->resolveLazyKeys($previousKeys);
 
-            if (empty($key = $row->buildKey($previousKeys))) {
+            if (DataParser::allKeysAreEmpty($currentKeys)) {
                 continue;
             }
+
+            $previousKeys = $currentKeys;
+            $key = $row->buildKey($previousKeys);
 
             foreach ($locales as $locale) {
 
