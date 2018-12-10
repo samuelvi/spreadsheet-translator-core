@@ -106,6 +106,10 @@ class DataParser extends AbstractParser implements \Iterator
             $currentKeys[] = $this->data[$this->index][$i];
         }
 
+        if(!array_filter($currentKeys) && !array_filter($previousKeys)) {
+            return [];
+        }
+
         $keys = [];
         foreach ($currentKeys as $idx => $key) {
 
