@@ -157,7 +157,7 @@ class DataParser extends AbstractParser implements \Iterator
 
     public function buildKey($keys)
     {
-        return join($keys, $this->nameSeparator);
+        return implode($this->nameSeparator, $keys);
     }
 
     public static function allKeysAreEmpty($keys)
