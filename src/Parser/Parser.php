@@ -87,6 +87,7 @@ class Parser
     private function doParseSheetConsideringLazyKeys(DataParser $dataParser, $locales)
     {
         $previousKeys = [];
+        $translations = [];
         foreach ($dataParser as $row) {
 
             $currentKeys = $row->resolveLazyKeys($previousKeys);
