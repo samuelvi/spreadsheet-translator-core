@@ -15,7 +15,7 @@ class ReaderFactory
 {
     public function create($resource, $format)
     {
-        $format = ucfirst($format);
+        $format = ucfirst((string) $format);
         $class = sprintf('Atico\SpreadsheetTranslator\Reader\%1$s\%1$sReader', $format);
         return new $class($resource);
     }

@@ -11,12 +11,13 @@
 
 namespace Atico\SpreadsheetTranslator\Core\Exporter;
 
+use Exception;
 use Atico\SpreadsheetTranslator\Core\Configuration\AbstractConfigurationManager;
 
 class ExporterConfigurationManager extends AbstractConfigurationManager implements ExporterConfigurationInterface
 {
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function getDestinationFolder()
     {
@@ -29,7 +30,7 @@ class ExporterConfigurationManager extends AbstractConfigurationManager implemen
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function getDomain()
     {

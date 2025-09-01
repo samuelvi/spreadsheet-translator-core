@@ -4,9 +4,9 @@ namespace Atico\SpreadsheetTranslator\Core\Util;
 
 class Localization
 {
-    public static function getLanguageFromLocale($locale)
+    public static function getLanguageFromLocale($locale): string
     {
-        $parts = explode('_', $locale);
+        $parts = explode('_', (string) $locale);
         return $parts[0];
     }
 }

@@ -11,14 +11,12 @@
 
 namespace Atico\SpreadsheetTranslator\Core\Configuration;
 
+use Exception;
+
 abstract class AbstractConfigurationManager
 {
-    /** @var Configuration $configuration */
-    protected $configuration;
-
-    function __construct(Configuration $configuration)
+    function __construct(protected Configuration $configuration)
     {
-        $this->configuration = $configuration;
     }
 
     public function getDefaultFormat()
@@ -37,14 +35,14 @@ abstract class AbstractConfigurationManager
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     protected function getRequiredOption($name)
     {
         $value = $this->configuration->getOption($name);
 
         if (null === $value) {
-            throw new \Exception(sprintf('The configuration parameter: "%s" is required', $name));
+            throw new Exception(sprintf('The configuration parameter: "%s" is required', $name));
         }
         return $value;
     }

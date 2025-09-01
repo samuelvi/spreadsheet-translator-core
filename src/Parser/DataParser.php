@@ -11,7 +11,9 @@
 
 namespace Atico\SpreadsheetTranslator\Core\Parser;
 
-class DataParser extends AbstractParser implements \Iterator
+use Iterator;
+
+class DataParser extends AbstractParser implements Iterator
 {
     public function __construct($data, $rowHeader, $firstRow, $nameSeparator)
     {
@@ -32,33 +34,34 @@ class DataParser extends AbstractParser implements \Iterator
         return $this->data;
     }
 
-    public function current()
-    {
-        return $this;
-    }
 
-    public function next()
-    {
-        $this->index++;
-        return $this;
-    }
-
-    public function key()
+    public function current(): mixed
     {
         return $this->data[$this->index];
     }
 
-    public function valid()
+
+    public function next(): void
+    {
+        $this->index++;
+    }
+
+    public function key(): mixed
+    {
+        return $this->index;
+    }
+
+    public function valid(): bool
     {
         return (count($this->data) > ($this->index));
     }
 
-    public function rewind()
+    public function rewind(): void
     {
         $this->index = $this->firstRow + 1;
     }
 
-    public function count()
+    public function count(): int
     {
         return count($this->data);
     }
@@ -68,23 +71,23 @@ class DataParser extends AbstractParser implements \Iterator
         for ($i = 0, $count = count($this->header); $i < $count; $i++) {
             $key = $this->header[$i];
 
-            if (empty($key) || self::isValidLocale($key)) {
+            if (empty($key) || $this->isValidLocale($key)) {
                 break;
             }
             $this->nameColumns[$key] = $i;
         }
     }
     
-    private static function isValidLocale($locale)
+    private function isValidLocale($locale): int|false
     {
-        return preg_match('/^([a-z]{2})((-|_)[A-Z]{2})?$/', $locale);
+        return preg_match('/^([a-z]{2})((-|_)[A-Z]{2})?$/', (string) $locale);
     }
 
     protected function configureLocaleColumns()
     {
         for ($i = 0, $count = count($this->header); $i < $count; $i++) {
             $locale = $this->header[$i];
-            if (self::isValidLocale($locale)) {
+            if ($this->isValidLocale($locale)) {
                 $this->localeColumns[$locale] = $i;
             }
         }
@@ -100,7 +103,10 @@ class DataParser extends AbstractParser implements \Iterator
         return $this->buildKey($keys);
     }
 
-    public function resolveLazyKeys($previousKeys)
+    /**
+     * @return mixed[]
+     */
+    public function resolveLazyKeys($previousKeys): array
     {
         for ($i = 0, $count = count($this->nameColumns); $i < $count; $i++) {
             $currentKeys[] = $this->data[$this->index][$i];
@@ -113,10 +119,10 @@ class DataParser extends AbstractParser implements \Iterator
         $keys = [];
         foreach ($currentKeys as $idx => $key) {
 
-            $key = trim($key);
-            if (empty($key)) {
+            $key = trim((string) $key);
+            if ($key === '' || $key === '0') {
                 $keys[] = $previousKeys[$idx];
-            } else if (!empty($key)) {
+            } elseif ($key !== '' && $key !== '0') {
                 $keys[] = $key;
             } else {
                 $keys[] = '';
@@ -131,7 +137,7 @@ class DataParser extends AbstractParser implements \Iterator
         return $this->data[$this->index][$this->localeColumns[$locale]];
     }
 
-    public function hasDataToParse()
+    public function hasDataToParse(): bool
     {
         return ($this->count() > $this->firstRow);
     }
@@ -146,7 +152,10 @@ class DataParser extends AbstractParser implements \Iterator
         return array_keys($this->nameColumns);
     }
 
-    public function getKeys()
+    /**
+     * @return list
+     */
+    public function getKeys(): array
     {
         $keys = [];
         for ($i = 0, $count = count($this->nameColumns); $i < $count; $i++) {
@@ -155,12 +164,12 @@ class DataParser extends AbstractParser implements \Iterator
         return $keys;
     }
 
-    public function buildKey($keys)
+    public function buildKey($keys): string
     {
         return implode($this->nameSeparator, $keys);
     }
 
-    public static function allKeysAreEmpty($keys)
+    public static function allKeysAreEmpty($keys): bool
     {
         return !array_filter($keys);
     }

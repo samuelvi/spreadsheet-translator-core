@@ -11,6 +11,8 @@
 
 namespace Atico\SpreadsheetTranslator\Core\Util;
 
+use Exception;
+
 class BrowserPathManager
 {
     const BROWSER_GOOGLE_CHROME = 'google_chrome';
@@ -22,9 +24,9 @@ class BrowserPathManager
     const OS_LINUX = 'linux';
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
-    private function getOS()
+    private function getOS(): string
     {
         if (stripos(PHP_OS, 'win') === 0) {
             return self::OS_WIN;
@@ -33,25 +35,25 @@ class BrowserPathManager
         } elseif (stripos(PHP_OS, 'linux') === 0) {
             return self::OS_LINUX;
         }
-        throw new \Exception(sprintf('Unsupported Operating System. PHP_OS: %s', PHP_OS));
+        throw new Exception(sprintf('Unsupported Operating System. PHP_OS: %s', PHP_OS));
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
-    public function getBrowserCommandForOpeningUrl($browser, $url)
+    public function getBrowserCommandForOpeningUrl($browser, $url): string
     {
         $os = $this->getOS();
-        $paths = array(
-            'mac' => array(
-                'browsers' => array(
+        $paths = [
+            'mac' => [
+                'browsers' => [
                     'firefox' => 'Firefox',
                     'google_chrome' => 'Google\ Chrome',
                     'safari' => 'Safari',
-                ),
+                ],
                 'command' => 'open -a %s "%s"',
-            ),
-        );
+            ],
+        ];
 
         return sprintf($paths[$os]['command'], $paths[$os]['browsers'][$browser], $url);
     }

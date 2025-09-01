@@ -11,6 +11,7 @@
 
 namespace Atico\SpreadsheetTranslator\Core\Processor;
 
+use Exception;
 use Atico\SpreadsheetTranslator\Core\Exception\NoDataToParseException;
 use Atico\SpreadsheetTranslator\Core\Exporter\ExporterFactory;
 use Atico\SpreadsheetTranslator\Core\Exporter\ExporterInterface;
@@ -22,29 +23,27 @@ use Atico\SpreadsheetTranslator\Core\Configuration\Configuration;
 
 class ProcessorBase
 {
-    /** @var  array $configuration */
-    protected $configuration;
-
     /** @var ResourceInterface */
     protected $resource;
 
-    public function __construct($configuration)
+    /**
+     * @param mixed[] $configuration
+     */
+    public function __construct(protected $configuration)
     {
-        $this->configuration = $configuration;
-        $this->resource = null;
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
-    public function parseSheetAndSaveIntoTranslatedFile($sheetName)
+    public function parseSheetAndSaveIntoTranslatedFile($sheetName): void
     {
         $localizedTranslations = $this->parseSheet($sheetName);
         $this->saveTranslatedFile($localizedTranslations, $sheetName);
     }
 
     /**
-     * @throws NoDataToParseException|\Exception
+     * @throws NoDataToParseException|Exception
      */
     protected function parseSheet($sheetName)
     {
@@ -52,13 +51,11 @@ class ProcessorBase
 
         /** @var Parser $parser */
         $parser = new Parser($this->getResource(), $parserConfiguration);
-        
-        $localizedTranslations = $parser->parseSheet($sheetName);
-        return $localizedTranslations;
+        return $parser->parseSheet($sheetName);
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     protected function saveTranslatedFile(array $localizedTranslations, $sheetName)
     {
@@ -73,7 +70,7 @@ class ProcessorBase
     /**
      * @param $bookName
      * @return ResourceInterface
-     * @throws \Exception
+     * @throws Exception
      */
     public function getResource()
     {
@@ -86,7 +83,7 @@ class ProcessorBase
 
     /**
      * @return ResourceInterface $resource
-     * @throws \Exception
+     * @throws Exception
      */
     private function buildResource()
     {
@@ -100,7 +97,7 @@ class ProcessorBase
 
     public static function createFromConfiguration($configuration)
     {
-        $class = get_called_class();
+        $class = static::class;
         return new $class($configuration);
     }
 }

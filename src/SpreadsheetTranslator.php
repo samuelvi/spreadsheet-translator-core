@@ -11,6 +11,7 @@
 
 namespace Atico\SpreadsheetTranslator\Core;
 
+use Exception;
 use Atico\SpreadsheetTranslator\Core\Configuration\ConfigurationPreparer;
 use Atico\SpreadsheetTranslator\Core\Processor\BookProcessor;
 use Atico\SpreadsheetTranslator\Core\Processor\SheetProcessor;
@@ -20,7 +21,7 @@ class SpreadsheetTranslator
     /** @var  array $configuration */
     protected $configuration;
 
-    function __construct($configuration = array())
+    function __construct($configuration = [])
     {
         ConfigurationPreparer::prepareConfiguration($configuration);
         $this->setConfiguration($configuration);
@@ -30,7 +31,7 @@ class SpreadsheetTranslator
         ConfigurationPreparer::cleanUp($this->configuration);
     }
 
-    public function setConfiguration($configuration)
+    public function setConfiguration($configuration): void
     {
         $this->configuration = $configuration;
     }
@@ -40,16 +41,16 @@ class SpreadsheetTranslator
         return $this->configuration;
     }
 
-    public function processSheet($sheetName, $bookName)
+    public function processSheet($sheetName, $bookName): void
     {
         $sheetProcessor = SheetProcessor::createFromConfiguration([$bookName => $this->configuration[$bookName]]);
         $sheetProcessor->processSheet($sheetName);
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
-    public function processAllBooks()
+    public function processAllBooks(): void
     {
         foreach ($this->configuration as $bookName => $configurationGroup) {
 
@@ -59,7 +60,7 @@ class SpreadsheetTranslator
         }
     }
 
-    public function processBook($bookName)
+    public function processBook($bookName): void
     {
         $bookProcessor = BookProcessor::createFromConfiguration([$bookName => $this->configuration[$bookName]]);
         $bookProcessor->processBook();
