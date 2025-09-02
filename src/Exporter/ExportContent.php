@@ -13,15 +13,8 @@ namespace Atico\SpreadsheetTranslator\Core\Exporter;
 
 class ExportContent implements ExportContentInterface
 {
-    private $destinationFile;
-    private $translations;
-    private $locale;
-
-    function __construct($destinationFile, $translations, $locale)
+    function __construct(private $destinationFile, private $translations, private $locale)
     {
-        $this->destinationFile = $destinationFile;
-        $this->translations = $translations;
-        $this->locale = $locale;
     }
 
     public function getDestinationFile()
@@ -29,7 +22,7 @@ class ExportContent implements ExportContentInterface
         return $this->destinationFile;
     }
 
-    public function setDestinationFile($destinationFile)
+    public function setDestinationFile($destinationFile): void
     {
         $this->destinationFile = $destinationFile;
     }
@@ -39,7 +32,7 @@ class ExportContent implements ExportContentInterface
         return $this->translations;
     }
 
-    public function setTranslations($translations)
+    public function setTranslations($translations): void
     {
         $this->translations = $translations;
     }
@@ -49,7 +42,7 @@ class ExportContent implements ExportContentInterface
         return $this->locale;
     }
 
-    public function setLocale($locale)
+    public function setLocale($locale): void
     {
         $this->locale = $locale;
     }

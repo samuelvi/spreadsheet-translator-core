@@ -11,12 +11,14 @@
 
 namespace Atico\SpreadsheetTranslator\Core\Processor;
 
+use Exception;
+
 class SheetProcessor extends ProcessorBase implements SheetProcessorInterface
 {
     /**
-     * @throws \Exception
+     * @throws Exception
      */
-    public function processSheet($sheetName)
+    public function processSheet($sheetName): void
     {
         parent::parseSheetAndSaveIntoTranslatedFile($sheetName);
     }

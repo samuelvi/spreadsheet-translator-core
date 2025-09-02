@@ -16,11 +16,10 @@ use Atico\SpreadsheetTranslator\Core\Util\Strings;
 
 class ProviderFactory
 {
-    protected function getClassName($providerName)
+    protected function getClassName($providerName): string
     {
         $providerNameCamelized = Strings::camelize($providerName);
-        $class = sprintf('Atico\SpreadsheetTranslator\Provider\%1$s\%1$sProvider', $providerNameCamelized);
-        return $class;
+        return sprintf('Atico\SpreadsheetTranslator\Provider\%1$s\%1$sProvider', $providerNameCamelized);
     }
 
     public function create(Configuration $configuration)

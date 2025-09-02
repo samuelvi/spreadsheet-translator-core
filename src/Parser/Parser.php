@@ -11,6 +11,7 @@
 
 namespace Atico\SpreadsheetTranslator\Core\Parser;
 
+use IteratorIterator;
 use Atico\SpreadsheetTranslator\Core\Configuration\Configuration;
 use Atico\SpreadsheetTranslator\Core\Exception\NoDataToParseException;
 use Atico\SpreadsheetTranslator\Core\Reader\ReaderFactory;
@@ -18,8 +19,7 @@ use Atico\SpreadsheetTranslator\Core\Resource\ResourceInterface;
 
 class Parser
 {
-    /** @var ParserConfigurationManager $configuration */
-    protected $configuration;
+    protected ParserConfigurationManager $configuration;
 
     protected $reader;
 
@@ -81,10 +81,10 @@ class Parser
     }
 
     /**
-     * @param \IteratorIterator $dataParser
-     * @return mixed
+     * @param IteratorIterator $dataParser
+     * @return non-empty-array<mixed>[]
      */
-    private function doParseSheetConsideringLazyKeys(DataParser $dataParser, $locales)
+    private function doParseSheetConsideringLazyKeys(DataParser $dataParser, $locales): array
     {
         $previousKeys = [];
         $translations = [];

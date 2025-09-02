@@ -13,13 +13,8 @@ namespace Atico\SpreadsheetTranslator\Core\Resource;
 
 class Resource implements ResourceInterface
 {
-    protected $value;
-    protected $format;
-
-    function __construct($value, $format)
+    function __construct(protected $value, protected $format)
     {
-        $this->value = $value;
-        $this->format = $format;
     }
 
     public function getFormat()
@@ -27,7 +22,7 @@ class Resource implements ResourceInterface
         return $this->format;
     }
 
-    public function setFormat($format)
+    public function setFormat($format): void
     {
         $this->format = $format;
     }
@@ -37,7 +32,7 @@ class Resource implements ResourceInterface
         return $this->value;
     }
 
-    public function setValue($value)
+    public function setValue($value): void
     {
         $this->value = $value;
     }

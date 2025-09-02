@@ -11,6 +11,7 @@
 
 namespace Atico\SpreadsheetTranslator\Core\Configuration;
 
+use Exception;
 use Atico\SpreadsheetTranslator\Core\Util\Strings;
 
 class Configuration implements ConfigurationInterface
@@ -19,9 +20,8 @@ class Configuration implements ConfigurationInterface
     protected $options;
 
 //    protected $nonRequiredOptions = array('parser');
-
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function __construct($configuration, $groupName)
     {
@@ -31,12 +31,13 @@ class Configuration implements ConfigurationInterface
 
     public function __call($method, $args)
     {
-        if (substr($method, 0, 3) == 'get') {
-            return $this->_get($method, $args);
+        if (str_starts_with((string) $method, 'get')) {
+            return $this->_get($method);
         }
+        return null;
     }
 
-    private function _get($method, $args)
+    private function _get($method)
     {
         $name = $this->parseOptionFromMethodCall($method);
         return $this->getOption($name);

@@ -11,9 +11,11 @@
 
 namespace Atico\SpreadsheetTranslator\Core\Exception;
 
-class NoDataToParseException extends \Exception
+use Exception;
+
+class NoDataToParseException extends Exception
 {
-    public static function create()
+    public static function create(): self
     {
         return new self('No data to parse');
     }

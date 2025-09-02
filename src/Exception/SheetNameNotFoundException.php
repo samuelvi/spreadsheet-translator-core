@@ -11,11 +11,13 @@
 
 namespace Atico\SpreadsheetTranslator\Core\Exception;
 
-class SheetNameNotFoundException extends \Exception
+use Exception;
+
+class SheetNameNotFoundException extends Exception
 {
     const ERROR_MESSAGE = 'Sheet name "%s" not found. ¿Did you set a properly value for "sheet-name" parameter?';
 
-    public static function create($name)
+    public static function create($name): self
     {
         return new self(sprintf(self::ERROR_MESSAGE, $name));
     }

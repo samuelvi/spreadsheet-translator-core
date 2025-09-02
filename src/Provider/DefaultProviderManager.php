@@ -11,6 +11,7 @@
 
 namespace Atico\SpreadsheetTranslator\Core\Provider;
 
+use Exception;
 use Atico\SpreadsheetTranslator\Core\Configuration\AbstractConfigurationManager;
 
 class DefaultProviderManager extends AbstractConfigurationManager
@@ -21,7 +22,7 @@ class DefaultProviderManager extends AbstractConfigurationManager
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function getSourceResource()
     {
@@ -29,7 +30,7 @@ class DefaultProviderManager extends AbstractConfigurationManager
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function getTempLocalSourceFile()
     {

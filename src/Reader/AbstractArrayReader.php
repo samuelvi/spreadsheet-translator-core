@@ -11,7 +11,9 @@
 
 namespace Atico\SpreadsheetTranslator\Core\Reader;
 
-abstract class AbstractArrayReader implements \Iterator
+use Iterator;
+
+abstract class AbstractArrayReader implements Iterator
 {
     /** @var  integer $index */
     protected $index;
@@ -24,7 +26,7 @@ abstract class AbstractArrayReader implements \Iterator
         return $this->getSheets()[$this->index];
     }
 
-    public function next()
+    public function next(): void
     {
         $this->index++;
     }
@@ -39,7 +41,7 @@ abstract class AbstractArrayReader implements \Iterator
         return (count($this->getSheets()) > ($this->index));
     }
 
-    public function rewind()
+    public function rewind(): void
     {
         $this->index = 0;
     }

@@ -17,7 +17,7 @@ use Atico\SpreadsheetTranslator\Core\Resource\ResourceInterface;
 
 class BookProcessor extends ProcessorBase implements BookProcessorInterface
 {
-    public function processBook()
+    public function processBook(): void
     {
         $sheetNames = $this->getSheetNames();
 
@@ -35,7 +35,7 @@ class BookProcessor extends ProcessorBase implements BookProcessorInterface
         return $reader->getSheetNames();
     }
 
-    private function parseAllSheetsAndSaveIntoCorrespondingTranslatedFiles($sheetNames)
+    private function parseAllSheetsAndSaveIntoCorrespondingTranslatedFiles($sheetNames): void
     {
         foreach ($sheetNames as $sheetName) {
             parent::parseSheetAndSaveIntoTranslatedFile($sheetName);
