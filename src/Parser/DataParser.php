@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Atico/SpreadsheetTranslator package.
  *
@@ -8,7 +10,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Atico\SpreadsheetTranslator\Core\Parser;
 
 use Iterator;
@@ -93,7 +94,7 @@ class DataParser extends AbstractParser implements Iterator
         }
     }
 
-    public function resolveKey()
+    public function resolveKey(): string
     {
         $keys = [];
         for ($i = 0, $count = count($this->nameColumns); $i < $count; $i++) {
@@ -142,12 +143,12 @@ class DataParser extends AbstractParser implements Iterator
         return ($this->count() > $this->firstRow);
     }
 
-    public function getLocales()
+    public function getLocales(): array
     {
         return array_keys($this->localeColumns);
     }
 
-    public function getKeyTitles()
+    public function getKeyTitles(): array
     {
         return array_keys($this->nameColumns);
     }

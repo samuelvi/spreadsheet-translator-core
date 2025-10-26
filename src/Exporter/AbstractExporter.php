@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Atico/SpreadsheetTranslator package.
  *
@@ -8,7 +10,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Atico\SpreadsheetTranslator\Core\Exporter;
 
 use Exception;
@@ -46,7 +47,7 @@ abstract class AbstractExporter
         return sprintf('%s%s.%s', $this->configuration->getPrefix(), $sheetName, $locale);
     }
 
-    private function buildFileNameWithExtension($fileName): string
+    private function buildFileNameWithExtension(string $fileName): string
     {
         return sprintf('%s.%s', $fileName, $this->getFormat());
     }
@@ -54,7 +55,7 @@ abstract class AbstractExporter
     /**
      * @throws Exception
      */
-    private function doPersist($destinationFile, $content): void
+    private function doPersist(string $destinationFile, $content): void
     {
         $bytes = file_put_contents($destinationFile, $content);
         if ($bytes === false) {

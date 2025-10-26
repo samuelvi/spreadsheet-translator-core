@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Atico/SpreadsheetTranslator package.
  *
@@ -8,7 +10,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Atico\SpreadsheetTranslator\Core\Util;
 
 use Exception;
@@ -41,7 +42,7 @@ class Curl
         return array_merge($defaultParameters, $postParameters);
     }
 
-    private static function buildGetCurSetOptArray(string &$url, $fields)
+    private static function buildGetCurSetOptArray(string &$url, $fields): array
     {
         $url .= '?' . http_build_query($fields);
         return self::getDefaultCurlParameters($url);
@@ -50,7 +51,7 @@ class Curl
     /**
      * @throws Exception
      */
-    public static function get($url, $fields = []): bool|string
+    public static function get(string $url, $fields = []): bool|string
     {
         $curl = curl_init();
         curl_setopt_array($curl, self::buildGetCurSetOptArray($url, $fields));
@@ -59,7 +60,7 @@ class Curl
         $curlError = self::curlExecHasFailed($result, $curl);
         curl_close($curl);
 
-        if ($curlError) {
+        if ($curlError !== '' && $curlError !== '0') {
             throw new Exception($curlError);
         }
         return $result;
@@ -77,7 +78,7 @@ class Curl
         $curlError = static::curlExecHasFailed($result, $curl);
         curl_close($curl);
 
-        if ($curlError) {
+        if ($curlError !== '' && $curlError !== '0') {
             throw new Exception($curlError);
         }
         return $result;

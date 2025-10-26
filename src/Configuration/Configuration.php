@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Atico/SpreadsheetTranslator package.
  *
@@ -8,7 +10,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Atico\SpreadsheetTranslator\Core\Configuration;
 
 use Exception;
@@ -29,21 +30,21 @@ class Configuration implements ConfigurationInterface
         $this->options = $groups[$groupName];
     }
 
-    public function __call($method, $args)
+    public function __call(string $method, array $args)
     {
-        if (str_starts_with((string) $method, 'get')) {
+        if (str_starts_with($method, 'get')) {
             return $this->_get($method);
         }
         return null;
     }
 
-    private function _get($method)
+    private function _get(string $method)
     {
         $name = $this->parseOptionFromMethodCall($method);
         return $this->getOption($name);
     }
 
-    private function parseOptionFromMethodCall($method)
+    private function parseOptionFromMethodCall($method): string
     {
         return Strings::uncamelize(str_replace('get', '', $method));
     }
