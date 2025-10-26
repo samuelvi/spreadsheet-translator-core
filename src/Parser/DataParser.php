@@ -37,7 +37,7 @@ class DataParser extends AbstractParser implements Iterator
 
     public function current(): mixed
     {
-        return $this->data[$this->index];
+        return $this;
     }
 
 
