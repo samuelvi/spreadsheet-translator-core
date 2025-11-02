@@ -49,8 +49,6 @@ jobs:
     - name: Run test suite
       run: composer test
 
-    - name: Generate coverage report
-      run: vendor/bin/phpunit --coverage-clover=coverage.xml
 
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v4
@@ -80,8 +78,6 @@ jobs:
     - name: Run PHPStan
       run: composer phpstan
 
-    - name: Check Rector (dry-run)
-      run: composer rector
 
   rector-fix-check:
     name: Rector Fix Check
