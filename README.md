@@ -37,25 +37,24 @@ Requirements
 
 ## Testing
 
-This project includes a comprehensive test suite with both unit and integration tests.
+This project contains both unit and integration tests to ensure the quality of the code.
 
-### Running Tests
+### Running the tests
+
+To run the tests, you can use the following command:
 
 ```bash
-# Run all tests
-composer test
-
-# Run with coverage report
-composer test:coverage
-
-# Run PHPStan static analysis
-composer phpstan
-
-# Run all quality checks (tests + phpstan)
-composer check
+make test
 ```
 
-See [tests/README.md](tests/README.md) for detailed testing documentation.
+This will run all the tests in the `tests/` directory.
+
+### Test suite
+
+The test suite is composed of two types of tests:
+
+- **Unit tests:** These tests are located in the `tests/Unit` directory and test individual components of the application in isolation.
+- **Integration tests:** These tests are located in the `tests/Integration` directory and test the integration of multiple components of the application.
 
 ### Continuous Integration
 
