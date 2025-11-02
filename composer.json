@@ -16,11 +16,30 @@
       "Atico\\SpreadsheetTranslator\\Core\\": "./src"
     }
   },
+  "autoload-dev": {
+    "psr-4": {
+      "Atico\\SpreadsheetTranslator\\Core\\Tests\\": "./tests"
+    }
+  },
   "require": {
     "php": ">=8.4"
   },
   "require-dev": {
-    "rector/rector": "^2.1",
-    "phpstan/phpdoc-parser": "^2.3"
+    "phpunit/phpunit": "^11.0",
+    "mockery/mockery": "^1.6",
+    "phpstan/phpstan": "^2.0",
+    "phpstan/phpdoc-parser": "^2.3",
+    "rector/rector": "^2.1"
+  },
+  "scripts": {
+    "test": "phpunit",
+    "test:coverage": "phpunit --coverage-html coverage",
+    "phpstan": "phpstan analyse src tests --level=8",
+    "rector": "rector process --dry-run",
+    "rector:fix": "rector process",
+    "check": [
+      "@test",
+      "@phpstan"
+    ]
   }
 }

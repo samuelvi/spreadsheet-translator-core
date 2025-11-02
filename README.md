@@ -9,7 +9,9 @@ Symfony Bundle:
 Symfony Demos:
 
 - <a href="https://github.com/samuelvi/translator-symfony-demo-local-file-to-php">Symfony Demo. Takes a local file and creates translation files per locale in php format</a>
-- <a href="https://github.com/samuelvi/translator-symfony-demo-google-to-yml">Symfony Demo. Takes a google drive spreadsheet and creates translation files per locale in yml format</a>
+- <a href="https://github.com/samuelvi/translator-symfony-demo-google-drive-provider-yml-exporter">Symfony Demo. Takes a google drive spreadsheet and creates translation files per locale in yml format</a>
+- <a href="https://github.com/samuelvi/translator-symfony-demo-google-auth-to-php">Symfony Demo. Takes an **authenticated** google drive spreadsheet and creates translation files per locale in php format</a>
+- <a href="https://github.com/samuelvi/translator-symfony-demo-onedrive-to-xliff/">Symfony Demo. Takes a microsoft one drive spreadsheet and creates translation files per locale in xliff format</a>
 
 Exporters:
 
@@ -32,6 +34,34 @@ Requirements
 ------------
 
   * PHP >=8.4
+
+## Testing
+
+This project includes a comprehensive test suite with both unit and integration tests.
+
+### Running Tests
+
+```bash
+# Run all tests
+composer test
+
+# Run with coverage report
+composer test:coverage
+
+# Run PHPStan static analysis
+composer phpstan
+
+# Run all quality checks (tests + phpstan)
+composer check
+```
+
+See [tests/README.md](tests/README.md) for detailed testing documentation.
+
+### Continuous Integration
+
+The project uses GitHub Actions for automated testing. All tests, code quality checks, and static analysis run automatically on:
+- Push to main/master/develop branches
+- Pull requests
 
 ## Code Quality Tools
 

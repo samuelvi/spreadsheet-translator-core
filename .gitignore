@@ -1,3 +1,7 @@
 composer.lock
 vendor/
 .idea
+.phpunit.cache
+coverage/
+coverage.xml
+.phpunit.result.cache
