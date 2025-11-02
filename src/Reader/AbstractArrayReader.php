@@ -12,6 +12,7 @@ declare(strict_types=1);
  */
 namespace Atico\SpreadsheetTranslator\Core\Reader;
 
+use ReturnTypeWillChange;
 use Iterator;
 
 abstract class AbstractArrayReader implements Iterator
@@ -22,6 +23,7 @@ abstract class AbstractArrayReader implements Iterator
     abstract public function getTitle($index);
     abstract public function getSheets();
 
+    #[ReturnTypeWillChange]
     public function current()
     {
         return $this->getSheets()[$this->index];
@@ -32,11 +34,13 @@ abstract class AbstractArrayReader implements Iterator
         $this->index++;
     }
 
+    #[ReturnTypeWillChange]
     public function key()
     {
         return $this->getTitle($this->index);
     }
 
+    #[ReturnTypeWillChange]
     public function valid()
     {
         return (count($this->getSheets()) > ($this->index));

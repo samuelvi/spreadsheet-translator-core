@@ -44,7 +44,7 @@ class Configuration implements ConfigurationInterface
         return $this->getOption($name);
     }
 
-    private function parseOptionFromMethodCall($method): string
+    private function parseOptionFromMethodCall(string $method): string
     {
         return Strings::uncamelize(str_replace('get', '', $method));
     }
